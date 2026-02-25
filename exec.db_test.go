@@ -3,7 +3,7 @@ package xdbclickhouse_test
 import (
 	"testing"
 
-	xdbclickhouse "github.com/zhiyunliu/xdb-mongodb"
+	xdbclickhouse "github.com/zhiyunliu/xdb-clickhouse"
 )
 
 func TestTest(t *testing.T) {

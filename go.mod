@@ -1,4 +1,4 @@
-module github.com/zhiyunliu/xdb-mongodb
+module github.com/zhiyunliu/xdb-clickhouse
 
 go 1.24.1
 
