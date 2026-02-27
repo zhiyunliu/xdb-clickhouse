@@ -10,6 +10,8 @@ import (
 	"github.com/zhiyunliu/glue/config"
 	contribxdb "github.com/zhiyunliu/glue/contrib/xdb"
 	"github.com/zhiyunliu/glue/xdb"
+	"github.com/zhiyunliu/golibs/xenv"
+	"github.com/zhiyunliu/golibs/xtransform"
 )
 
 func init() {
@@ -35,6 +37,10 @@ func (s *clickhouseResolver) Resolve(connName string, setting config.Config, opt
 	if err != nil {
 		return nil, fmt.Errorf("can't read clickhouse config:%w", err)
 	}
+
+	cfg.Cfg.Conn = xtransform.TranslateCallback(cfg.Cfg.Conn, func(param string) string {
+		return xenv.Get(param)
+	}, xtransform.WithBraceMode())
 	// 解析clickhouse链接
 	reg := regexp.MustCompile(`^clickhouse://(.*):(.*)@(.*)/(.*)\?(.*)`)
 	params := reg.FindSubmatch([]byte(cfg.Cfg.Conn))
